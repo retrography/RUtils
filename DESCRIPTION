@@ -1,0 +1,11 @@
+Package: RUtils
+Title: A bunch of useful functions for daily use.
+Version: 0.0.0.9000
+Authors@R: person("Mahmood", "Zargar", email = "mahmood@gmail.com", role = c("aut", "cre"))
+Description: A bunch of useful functions for daily use. Makes loading, unloading, listing and installing packages easier.
+Depends: R (>= 3.5.1)
+License: GPL3
+Encoding: UTF-8
+LazyData: true
+Imports: 
+        devtools
