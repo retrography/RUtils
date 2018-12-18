@@ -1,6 +1,6 @@
 #TODO: Mostly copied from R code
 #' @export
-clip.output <- function (..., type = c("output", "message")) 
+clip.output <- function (..., type = c("output", "message"))
 {
  	append <- FALSE
 	split <- FALSE
@@ -9,15 +9,15 @@ clip.output <- function (..., type = c("output", "message"))
     type <- match.arg(type)
     rval <- NULL
     closeit <- TRUE
-    if (is.null(file)) 
+    if (is.null(file))
         file <- textConnection("rval", "w", local = TRUE)
-    else if (is.character(file)) 
-        file <- file(file, if (append) 
+    else if (is.character(file))
+        file <- file(file, if (append)
             "a"
         else "w")
     else if (inherits(file, "connection")) {
-        if (!isOpen(file)) 
-            open(file, if (append) 
+        if (!isOpen(file))
+            open(file, if (append)
                 "a"
             else "w")
         else closeit <- FALSE
@@ -32,25 +32,26 @@ clip.output <- function (..., type = c("output", "message"))
     evalVis <- function(expr) withVisible(eval(expr, pf))
     for (i in seq_along(args)) {
         expr <- args[[i]]
-        tmp <- switch(mode(expr), expression = lapply(expr, evalVis), 
+        tmp <- switch(mode(expr), expression = lapply(expr, evalVis),
             call = , name = list(evalVis(expr)), stop("bad argument"))
-        for (item in tmp) if (item$visible) 
+        for (item in tmp) if (item$visible)
             print(item$value)
     }
     on.exit()
     sink(type = type, split = split)
-    if (closeit) 
+    if (closeit)
         close(file)
-    if (is.null(rval)) 
+    if (is.null(rval))
         invisible(NULL)
     else rval
 }
 # clip.output <- function(...) {capture.output(..., file = pipe("pbcopy"))}
 
+#does not work
 #' @export
 rm.all <-
-  function() {
-    rm(list = ls(all = TRUE))
+  function(...) {
+    rm(list = ls(all = TRUE), ...)
   }
 
 #TODO: Implement parameters and pattern matching
